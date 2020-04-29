@@ -4,7 +4,7 @@ import time
 import requests
 import json
 
-driver = webdriver.Chrome("C:\\Users\\roger\\Downloads\\Programas\\chromedriver.exe")
+driver = webdriver.Chrome("C:\\Users\\eugen\\Documents\\chromedriver.exe")
 driver.get("http://www.mercadopublico.cl/Portal/Modules/Site/Busquedas/BuscadorAvanzado.aspx?qs=2")
 
 boton_inicial = driver.find_element_by_xpath('//*[@id="btnBusqueda"]')
@@ -171,16 +171,20 @@ for c in array_codigo_link:
 			c=c+1
 			obje_final['info_cliente']=array_info_cliente
 
+	monto_adjudicado=driver.find_element_by_xpath('//*[@id="lblTotalAmountShow"]').text
+
+	obje_final["monto_adjudicado"]=monto_adjudicado
+
 	if orden_comprar != "":
 		array_final.append(obje_final)
-#print(array_final)
+
 
 #Ir a arrayan
 headers = {
 	'Content-Type': 'application/json', 
 	'Accept':'application/json'
 }
-
+print(array_info_cliente)
 array=json.dumps(array_final)
 response = requests.post(
 	url='https://api-arrayan.cl/Publico/',
